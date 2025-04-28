@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "midterm"
 include(":app")
- 

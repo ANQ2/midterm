@@ -1,4 +1,5 @@
 package com.example.midterm
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material3.Button
@@ -22,10 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.compose.*
 import androidx.navigation.NavController
 import androidx.navigation.compose.*
+import com.airbnb.lottie.compose.*
+import com.example.midterm.presentation.screen.user_list.UserScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +49,8 @@ fun AppNavigation() {
         composable("details_screen") { DetailsScreen(navController) }
         composable("favorite_player_screen") { FavoritePlayerScreen(navController) }
         composable("favorite_club_screen") { FavoriteClubScreen(navController) }
+        // Новый экран для списка пользователей
+        composable("user_screen") { UserScreen() }
     }
 }
 
@@ -73,6 +81,10 @@ fun MainScreen(navController: NavController) {
             Button(onClick = { navController.navigate("favorite_player_screen") }) {
                 Text("Мой любимый игрок")
             }
+
+            Button(onClick = { navController.navigate("user_screen") }) {
+                Text("Пользователи") // Кнопка на Room экран
+            }
         }
     }
 }
@@ -86,7 +98,10 @@ fun DetailsScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text("Почему я люблю футбол?", fontSize = 24.sp, color = Color.White)
-            Text("Я влюбился в футбол, когда мне было 5 лет. С тех пор этот вид спорта стал для меня чем-то большим, чем просто игра. Я восхищаюсь его динамикой, страстью и тем, как он объединяет людей по всему миру.", color = Color.White)
+            Text(
+                "Я влюбился в футбол, когда мне было 5 лет. С тех пор этот вид спорта стал для меня чем-то большим, чем просто игра. Я восхищаюсь его динамикой, страстью и тем, как он объединяет людей по всему миру.",
+                color = Color.White
+            )
             Button(onClick = { navController.popBackStack() }) {
                 Text("Назад")
             }
